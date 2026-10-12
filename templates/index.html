@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard - URL Security Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="dashboard">
+    <header class="header">
+        <div class="brand">
+            <div class="shield">🛡️</div>
+            <div><h1>PhishGuard</h1><p>AI-Powered Phishing URL Detection</p></div>
+        </div>
+        <div class="status"><span class="status-dot"></span>SYSTEM ONLINE</div>
+    </header>
+
+    <section class="scanner">
+        <h2>Analyze a Website URL</h2>
+        <p class="scanner-description">Detect potentially malicious URLs using machine-learning based URL analysis.</p>
+        <form method="POST" action="/">
+            <div class="input-wrapper">
+                <input type="text" name="url" placeholder="https://example.com" value="{{ url }}" autocomplete="off" required>
+                <button type="submit" class="scan-button">🔍 Analyze URL</button>
+            </div>
+        </form>
+        <div class="examples">
+            <span>Try:</span>
+            <button class="example-btn" onclick="setURL('https://www.google.com')" type="button">Google</button>
+            <button class="example-btn" onclick="setURL('https://www.github.com')" type="button">GitHub</button>
+            <button class="example-btn" onclick="setURL('https://www.wikipedia.org')" type="button">Wikipedia</button>
+            <button class="example-btn" onclick="setURL('http://secure-login.example.com/verify/account')" type="button">Test URL</button>
+        </div>
+    </section>
+
+    {% if error %}
+    <section class="error-card" role="alert">
+        <div class="error-icon">⚠️</div>
+        <div><h3>Could Not Analyze URL</h3><p>{{ error }}</p></div>
+    </section>
+    {% endif %}
+
+    {% if result and result != "Error" %}
+    <section class="result-grid">
+        <div class="card result-card">
+            <h3 class="card-title">Scan Result</h3>
+            <div class="result-status">
+                <div class="result-icon {% if result == 'Phishing' %}phishing{% else %}legitimate{% endif %}">{% if result == "Phishing" %}⚠️{% else %}✓{% endif %}</div>
+                <div>
+                    <div class="result-name">{{ result }}</div>
+                    <div class="result-subtitle">{% if result == "Phishing" %}Potentially malicious URL detected. Treat it cautiously.{% else %}The model did not identify strong phishing signals. This is not a guarantee that the site is safe.{% endif %}</div>
+                </div>
+            </div>
+            <div class="url-display">{{ url }}</div>
+        </div>
+
+        <div class="card confidence-card">
+            <h3 class="card-title">Model Confidence</h3>
+            <div class="confidence-circle">
+                <div class="confidence-number">{{ confidence }}%</div>
+                <div class="confidence-label">CLASS PROBABILITY</div>
+            </div>
+            <div class="confidence-text">The model assigns <strong>{{ confidence }}%</strong> probability to the predicted class. This is a model estimate, not a verified safety score.</div>
+            <div class="bar"><div class="bar-fill" data-confidence="{{ confidence or 0 }}"></div></div>
+        </div>
+    </section>
+
+    <section class="card section-card">
+        <h3 class="card-title">🔎 Analysis Information</h3>
+        <div class="info-grid">
+            <div class="info-item"><span class="info-label">URL Analyzed</span><span class="info-value">Yes</span></div>
+            <div class="info-item"><span class="info-label">Machine Learning</span><span class="info-value">Random Forest</span></div>
+            <div class="info-item"><span class="info-label">Number of Trees</span><span class="info-value">300</span></div>
+            <div class="info-item"><span class="info-label">URL Features</span><span class="info-value">{{ feature_count }}</span></div>
+            <div class="info-item"><span class="info-label">Classes</span><span class="info-value">2</span></div>
+            <div class="info-item"><span class="info-label">Prediction</span><span class="info-value {% if result == 'Phishing' %}danger-text{% else %}safe-text{% endif %}">{{ result }}</span></div>
+        </div>
+        {% if risk_score is not none %}
+        <p class="section-description">Estimated phishing probability: <strong>{{ risk_score }}%</strong> · Risk band: <strong>{{ risk_level }}</strong>. These are model outputs, not a guarantee of site safety.</p>
+        {% endif %}
+    </section>
+
+    <section class="card section-card">
+        <h3 class="card-title">📊 URL Features Used</h3>
+        <p class="section-description">The model analyzes structural characteristics of the submitted URL. Individual signals do not prove that a URL is malicious.</p>
+        <div class="feature-list">
+            {% for item in feature_analysis %}
+            <div class="feature-item"><span>{{ item.name }}</span><span>{{ item.value }}</span></div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="card section-card">
+        <h3 class="card-title">🛡️ Basic Security Signals</h3>
+        <div class="feature-list">
+            {% for check in security_checks %}
+            <div class="feature-item"><span>{{ check.name }}</span><span class="{% if check.safe %}safe-text{% else %}danger-text{% endif %}">{{ check.value }}</span></div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="card section-card">
+        <h3 class="card-title">🧠 Model Information</h3>
+        <div class="model-grid">
+            <div class="model-stat"><div class="model-stat-value">Random Forest</div><div class="model-stat-label">Classification Model</div></div>
+            <div class="model-stat"><div class="model-stat-value">300</div><div class="model-stat-label">Decision Trees</div></div>
+            <div class="model-stat"><div class="model-stat-value">{{ feature_count }}</div><div class="model-stat-label">URL Features</div></div>
+            <div class="model-stat"><div class="model-stat-value">2</div><div class="model-stat-label">Classes</div></div>
+        </div>
+        <div class="model-description"><strong>Classes:</strong> Legitimate (0) and Phishing (1). The model evaluates URL structure and learned patterns. It does not independently verify website ownership, page content, domain reputation, or whether the site is currently compromised.</div>
+    </section>
+
+    {% if scan_history %}
+    <section class="card section-card">
+        <h3 class="card-title">🕘 Recent Scans (this session)</h3>
+        <div class="feature-list">
+            {% for item in scan_history %}
+            <div class="feature-item"><span>{{ item.time }} · {{ item.url }}</span><span class="{% if item.result == 'Phishing' %}danger-text{% else %}safe-text{% endif %}">{{ item.result }} ({{ item.confidence }}%)</span></div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    {% endif %}
+
+    <footer>PhishGuard • Machine Learning Cybersecurity Project • Predictions are advisory, not proof of safety.</footer>
+</div>
+<script>
+function setURL(url) {
+    const input = document.querySelector('input[name="url"]');
+    if (input) { input.value = url; input.focus(); }
+}
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.bar-fill').forEach(function (bar) {
+        const value = parseFloat(bar.dataset.confidence);
+        if (!Number.isNaN(value)) bar.style.width = Math.max(0, Math.min(100, value)) + '%';
+    });
+});
+</script>
+</body>
+</html>

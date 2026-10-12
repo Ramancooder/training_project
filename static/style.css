@@ -1,0 +1,913 @@
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #182a3a,
+            #07111d 45%,
+            #03070c
+        );
+
+    color: #e8f0f7;
+
+    padding: 30px 15px;
+}
+
+
+/* ============================================================
+   MAIN CONTAINER
+============================================================ */
+
+.dashboard {
+    width: 100%;
+    max-width: 1150px;
+    margin: auto;
+}
+
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+.header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 25px;
+    margin-bottom: 20px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    background:
+        rgba(10, 22, 34, 0.88);
+
+    backdrop-filter: blur(15px);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+/* ============================================================
+   BRAND
+============================================================ */
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.shield {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #123c59,
+            #0b2438
+        );
+
+    font-size: 25px;
+}
+
+.brand h1 {
+    margin: 0;
+
+    font-size: 22px;
+
+    letter-spacing: 0.5px;
+}
+
+.brand p {
+    margin: 3px 0 0;
+
+    color: #8da4b8;
+
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   SYSTEM STATUS
+============================================================ */
+
+.status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 13px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(31, 200, 120, 0.08);
+
+    border:
+        1px solid
+        rgba(31, 200, 120, 0.2);
+
+    color: #5ee7a1;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    background: #38e88b;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 12px
+        rgba(56, 232, 139, 0.8);
+}
+
+
+/* ============================================================
+   SCANNER
+============================================================ */
+
+.scanner {
+    padding: 38px;
+
+    text-align: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(14, 31, 46, 0.96),
+            rgba(6, 16, 27, 0.96)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.3);
+}
+
+.scanner h2 {
+    margin: 0;
+
+    font-size: 32px;
+}
+
+.scanner-description {
+    margin:
+        12px auto 28px;
+
+    max-width: 650px;
+
+    color: #8da4b8;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   URL INPUT
+============================================================ */
+
+.input-wrapper {
+    display: flex;
+
+    gap: 10px;
+
+    width: 100%;
+    max-width: 850px;
+
+    margin: auto;
+}
+
+.input-wrapper input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 17px 18px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        #304556;
+
+    background: #07131f;
+
+    color: #eaf4fb;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.input-wrapper input::placeholder {
+    color: #536d80;
+}
+
+.input-wrapper input:focus {
+    border-color: #3ba7ff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(59, 167, 255, 0.1);
+}
+
+
+/* ============================================================
+   SCAN BUTTON
+============================================================ */
+
+.scan-button {
+    border: none;
+
+    padding: 0 25px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1584d5,
+            #1261a0
+        );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.scan-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(21, 132, 213, 0.3);
+}
+
+.scan-button:active {
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   EXAMPLE BUTTONS
+============================================================ */
+
+.examples {
+    margin-top: 18px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    color: #71899c;
+
+    font-size: 12px;
+}
+
+.example-btn {
+    padding: 7px 12px;
+
+    border-radius: 7px;
+
+    border:
+        1px solid
+        #2b4051;
+
+    background: #0b1b2a;
+
+    color: #9eb2c2;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: 0.2s;
+}
+
+.example-btn:hover {
+    color: white;
+
+    border-color: #3b7ea9;
+
+    background: #10283b;
+}
+
+
+/* ============================================================
+   ERROR
+============================================================ */
+
+.error-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 70, 70, 0.08);
+
+    border:
+        1px solid
+        rgba(255, 70, 70, 0.2);
+
+    color: #ff8d8d;
+}
+
+.error-icon {
+    font-size: 25px;
+}
+
+.error-card h3 {
+    margin: 0 0 5px;
+
+    color: #ff8d8d;
+}
+
+.error-card p {
+    margin: 0;
+
+    color: #c37d7d;
+
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   CARDS
+============================================================ */
+
+.card {
+    background:
+        rgba(9, 22, 34, 0.9);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(0, 0, 0, 0.18);
+}
+
+.section-card {
+    margin-top: 18px;
+}
+
+.card-title {
+    margin: 0 0 20px;
+
+    font-size: 14px;
+
+    color: #8ea7ba;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.section-description {
+    color: #71899c;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-top: -5px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ============================================================
+   RESULT GRID
+============================================================ */
+
+.result-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.2fr 0.8fr;
+
+    gap: 18px;
+
+    margin-top: 20px;
+}
+
+
+/* ============================================================
+   RESULT CARD
+============================================================ */
+
+.result-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.result-icon {
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+.legitimate {
+    background:
+        rgba(45, 216, 129, 0.1);
+
+    color: #4ee497;
+}
+
+.phishing {
+    background:
+        rgba(240, 82, 82, 0.1);
+
+    color: #ff6d6d;
+}
+
+.result-name {
+    font-size: 27px;
+
+    font-weight: bold;
+}
+
+.result-subtitle {
+    color: #849bac;
+
+    margin-top: 4px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.url-display {
+    padding: 14px;
+
+    background: #06121d;
+
+    border-radius: 9px;
+
+    color: #a7bdcc;
+
+    word-break: break-all;
+
+    font-size: 13px;
+
+    border:
+        1px solid
+        #1e3546;
+}
+
+
+/* ============================================================
+   CONFIDENCE
+============================================================ */
+
+.confidence-card {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+.confidence-circle {
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        10px solid
+        #2388d4;
+
+    box-shadow:
+        0 0 30px
+        rgba(35, 136, 212, 0.15);
+}
+
+.confidence-number {
+    font-size: 32px;
+
+    font-weight: 800;
+}
+
+.confidence-label {
+    margin-top: 3px;
+
+    color: #8299aa;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+.confidence-text {
+    max-width: 300px;
+
+    margin: 18px auto;
+
+    color: #71899c;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.confidence-text strong {
+    color: #dbe8f1;
+}
+
+
+/* ============================================================
+   CONFIDENCE BAR
+============================================================ */
+
+.bar {
+    width: 100%;
+
+    height: 8px;
+
+    background: #172b3a;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.bar-fill {
+    width: 0;
+    height: 100%;
+
+    max-width: 100%;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2388d4,
+            #50baff
+        );
+
+    transition: width 0.5s ease;
+}
+
+
+/* ============================================================
+   INFORMATION GRID
+============================================================ */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.info-item {
+    padding: 15px;
+
+    background: #071522;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        #1b3040;
+}
+
+.info-label {
+    display: block;
+
+    color: #71899a;
+
+    font-size: 11px;
+
+    margin-bottom: 7px;
+}
+
+.info-value {
+    display: block;
+
+    color: #e2edf4;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.safe-text {
+    color: #4ee497;
+}
+
+.danger-text {
+    color: #ff6d6d;
+}
+
+
+/* ============================================================
+   FEATURE LIST
+============================================================ */
+
+.feature-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.feature-item {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 13px;
+
+    background: #071522;
+
+    border:
+        1px solid
+        #1b3040;
+
+    border-radius: 9px;
+
+    color: #9db2c1;
+
+    font-size: 12px;
+}
+
+.feature-item span:last-child {
+    color: #4ee497;
+
+    font-weight: bold;
+}
+
+
+/* ============================================================
+   MODEL INFORMATION
+============================================================ */
+
+.model-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 10px;
+}
+
+.model-stat {
+    padding: 16px;
+
+    background: #071522;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        #1b3040;
+}
+
+.model-stat-value {
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+.model-stat-label {
+    color: #71899a;
+
+    font-size: 11px;
+}
+
+.model-description {
+    margin-top: 18px;
+
+    padding: 14px;
+
+    background: #071522;
+
+    border-radius: 9px;
+
+    color: #758d9e;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.model-description strong {
+    color: #a7bbc9;
+}
+
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+footer {
+    text-align: center;
+
+    color: #50697b;
+
+    font-size: 11px;
+
+    padding: 25px 0 5px;
+}
+
+
+/* ============================================================
+   RESPONSIVE - TABLET
+============================================================ */
+
+@media (max-width: 800px) {
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-wrapper {
+        flex-direction: column;
+    }
+
+    .scan-button {
+        padding: 15px;
+    }
+
+    .header {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+    .info-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .model-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE - MOBILE
+============================================================ */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 15px 10px;
+    }
+
+    .scanner {
+        padding: 25px 15px;
+    }
+
+    .scanner h2 {
+        font-size: 25px;
+    }
+
+    .scanner-description {
+        font-size: 13px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-list {
+        grid-template-columns: 1fr;
+    }
+
+    .model-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .brand h1 {
+        font-size: 20px;
+    }
+
+    .result-name {
+        font-size: 23px;
+    }
+
+    .confidence-circle {
+        width: 145px;
+        height: 145px;
+    }
+
+}
